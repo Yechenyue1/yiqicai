@@ -1,0 +1,66 @@
+{template 'common/header'}
+
+        <style>
+            .gerenzhongxin{
+                background-color: #EFEFF4;font-size: 16px;position: absolute;width: 100%;height: 100%;
+            }
+            .gerenzhongxin-1{
+                position: absolute;height: 40%;width: 100%;background-color:#fff;border-bottom: solid 1px #CFCFCF;background-image: url("{WELIAM_INDIANA_STATIC}image/gerenzhong.jpg");background-size:100% 100%;
+            }
+            .gerenzhongxin-11{
+                height:50%;
+            }
+            .gerenzhongxin-12{
+                margin-top:-35px;width: 100%;text-align: center;
+            }
+            .gerenzhongxin-13{
+                width: 100%;text-align: center;margin-top: 3%;
+            }
+            .gerenzhongxin-2{
+                position: absolute;top:42%;left: 2.5%;width: 95%;
+            }
+            .gerenzhongxin-21{
+                background-color: #fff;height: 40px;line-height: 40px;border-radius:5px;
+            }
+            .gerenzhongxin-22{
+                background-color: #fff;height: 40px;line-height: 40px;margin-top:1px;border-radius:5px;
+            }
+             .gerenzhongxin-3{
+                position: absolute;bottom:2.5rem;width: 100%;
+            }
+            .gerenzhongxin-2 img{
+                margin-top: 5px;margin-left: 10px;margin-right: 5px; float: left;
+            }
+            .gerenzhongxin-2 a{color:black;} 
+        </style>
+<div>
+    <div>
+		{template 'common/followed'}
+		{template 'common/footbar'}
+		
+                <div  class="gerenzhongxin">
+                    <div class="gerenzhongxin-1">
+                        <div class="gerenzhongxin-11"></div>
+                        <div class="gerenzhongxin-12"><img src="{$reply['avatar']}" width="70px" style="border-radius:50%;margin: 0 auto;"></div>
+                        <div class="gerenzhongxin-13">
+                            <div><b>昵称:{$reply['nickname']}</b></div>
+                            <div style="margin-top:10px;"><b>余额：<span style="color:red;">{$reply['credit2']}</span>&nbsp;元</b></div>
+                        </div>
+                    </div>
+                    <div class="gerenzhongxin-2" >
+                        <div class="gerenzhongxin-21"><img src="{WELIAM_INDIANA_STATIC}image/jingcai.png" width="30px" height="30px"><a href="{php echo $this->createMobileUrl('order')}">参与记录</a></div>
+                        <div class="gerenzhongxin-22"><img src="{WELIAM_INDIANA_STATIC}image/zhongjiang.png" width="30px" height="30px"><a href="{php echo $this->createMobileUrl('order_get')}">中奖记录</a></div>
+                        
+                        <div class="gerenzhongxin-22"><img src="{WELIAM_INDIANA_STATIC}image/tixian.png" width="30px" height="30px"><a href="http://wq.dashoudz.com/app/index.php?i=3&c=entry&m=ewei_shopv2&do=mobile&r=diypage&id=19">立即提现</a></div>
+                        <div class="gerenzhongxin-22"><img src="{WELIAM_INDIANA_STATIC}image/xiaofei.png" width="30px" height="30px"><a href="{php echo $this->createMobileUrl('consume')}">消费记录</a></div>
+                        <div class="gerenzhongxin-22"><img src="{WELIAM_INDIANA_STATIC}image/tixian.png" width="30px" height="30px"><a href="http://wq.dashoudz.com/app/index.php?i=3&c=entry&m=ewei_shopv2&do=mobile&r=diypage&id=20">加入福利群</a></div>
+                    </div>
+                </div>
+                <div class="gerenzhongxin-3">
+               {template 'common/footer'}
+                </div>
+            </div>
+       
+    </div>
+</body>
+</html>

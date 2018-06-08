@@ -1,0 +1,284 @@
+{template 'common/header'}
+<style>
+.x_new_publish{width:100%;height:40px;position:relative;overflow:hidden;background:#fff no-repeat 5% center;background-size:20px;}
+.x_new_publish:before {content: " ";position: absolute;left: 0;top: 0;width: 100%;height: 1px;border-top: 1px solid #e1e1e1;color: #C7C7C7;-webkit-transform-origin: 0 0;transform-origin: 0 0;-webkit-transform: scaleY(0.5);transform: scaleY(0.5);}
+.x_new_publish:after {content: " ";position: absolute;left: 0;bottom: 0;width: 100%;height: 1px;border-bottom: 1px solid #e1e1e1;color: #C7C7C7;-webkit-transform-origin: 0 100%;transform-origin: 0 100%;-webkit-transform: scaleY(0.5);transform: scaleY(0.5);}
+.x_new_publish .left-icon{position: absolute;padding-left: 15px;line-height: 40px;}
+.x_new_publish .left-icon .iconfont{font-size: 24px;color: #d93a55;}
+.x_newest_publish{width:100%;line-height:40px;position: absolute;padding-left: 15px;float: left;}
+.x_newest_publish li{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+.c_new_goods{width:95%;margin: 5px auto;border-radius:5px;}
+
+.c_goods_title li{background-color:#FDCD21;}
+.s_index_ul li{width:20%;float:left;text-align:center;margin-bottom:10px}
+.c_goods_title li{float:left;width:100%;line-height:44px;height:44px;text-align:center;font-size:14px;color:#666}
+.shopping-right-2{width: 40px;border:1px solid #CC9C0F;text-align: center;border-radius:5px;}
+.shopping-right-2 a{color:#CC9C0F}
+.shopping-right-3{ width:70px;margin:0 auto;text-align:center;margin-bottom:-5px;margin-top:4px;border:1px solid #000000;font-size: 10px;padding: 2px;border-radius:5px}
+</style>		   
+<div class="page-group">
+    <div class="page page-current" id="page-goods-list">
+		{template 'common/followed'}
+		{template 'common/footbar'}
+		<div class="content infinite-scroll" data-distance="10" data-type="js">
+		<div class="g-body">
+		 	<div class="m-index">
+                            <!--通知-->
+                            <div class="x_new_publish" style="border-bottom: solid 1px #777777;">
+					<div class="left-icon">
+				       	<img src="{WELIAM_INDIANA_STATIC}img/icon/appimg/horn2.png" />
+				    </div>
+					<ul class="x_newest_publish" id="publishData">
+						{loop $info_zhong $no}
+                                                <li><span style="color: #4E555E;">恭喜<span style="color: #FF0000;">{$no['nickname']}</span>在{$no['init_money']}元区猜中 -- {$no['change_endtime']}</span></li>
+						{/loop}
+					</ul>
+				</div>
+                            
+		 		<!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓幻灯片开始↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ -->
+		        {if $advs}
+                        <div id="banner_box" class="box_swipe" style="width:95%;margin: 5px auto;">
+					<ul>
+						{loop $advs $adv}
+						<li>
+							<a {if $adv['link'] != 'http://'}href="{$adv['link']}"{/if}>
+								<img src="{php echo tomedia($adv['thumb']);}" style='width:100%;border-radius:5px;' />
+							</a>
+		
+						</li>
+						{/loop}
+					</ul>
+					<ol>
+						{php $slideNum = 1;} {loop $advs $adv}
+						<li{if $slideNum==1 } class="on" {/if}></li>
+						{php $slideNum++;} {/loop}
+					</ol>
+				</div>
+				<script>
+					$(function() {
+				        new Swipe($('#banner_box')[0], {
+				            speed:500,
+				            auto:3000,
+				            callback: function(){
+				                var lis = $(this.element).next("ol").children();
+				                lis.removeClass("on").eq(this.index).addClass("on");
+				            }
+				        });
+				    });
+				</script>
+				{/if}
+				<!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑幻灯片结束↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
+                                <!--↓↓↓↓规则↓↓↓↓-->
+                                <div style="width:95%;margin: 5px auto;">
+                                    <img src="{WELIAM_INDIANA_STATIC}image/guize.jpg" style='width:100%;border-radius:5px;'>
+                                </div>
+                                <!--↑↑↑↑规则↑↑↑↑-->
+				<!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓自定义菜单开始↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ -->
+				{if $navis}
+				<div class="s_index_icon" style="width:95%;margin: 5px auto;border-radius:5px;padding-bottom: 0px;">
+			        <div class="swiper-wrapper" id="c_main_Prefecture" >
+				    	<ul class="s_index_ul" style="">
+				    		{loop $navis $navi}
+                                                <li><a {if $navi['link'] != 'http://'}href="{$navi['link']}"{/if}><img src="{php echo tomedia($navi['thumb']);}"><b><em>{$navi['name']}</em></b></a></li>
+				    		{/loop}
+				    	</ul>
+			        </div>
+			   	</div>
+			   	{/if}
+			   	
+				<script type="text/javascript">
+					function newnotice(){
+						var a=0;
+						$(
+							$(".x_newest_publish li")[0]).clone(!0).insertAfter(
+								$(
+									$(".x_newest_publish li")[
+									$(".x_newest_publish li").length-1]
+									)
+								);
+								setInterval(
+									function(){
+										a-=40;
+										a>=40*-($(".x_newest_publish li").length-2)?$(".x_newest_publish").animate({marginTop:a},2E3):$(".x_newest_publish").animate({marginTop:a},2E3,function(){a=0;$(".x_newest_publish").css({marginTop:0})})},4E3)};
+					$(function () {
+						newnotice();
+					});
+				</script>
+			   	<!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑自定义菜单结束↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
+			   	<!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓滚动揭晓开始↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ -->
+			   	
+			    <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑滚动揭晓结束↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
+
+			    <!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓首页商品展示开始↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ -->
+			    
+			    <div class="c_new_goods b_index_fixed1">
+			        <ul class="c_goods_title" style="position: relative; top: 0px; left: 0px; z-index: 149;">
+                                    <li><img src="{WELIAM_INDIANA_STATIC}image/yiyuan.jpg" height="100%" width="100%"/></li>
+			        </ul>
+			        <dl class="c_goods_details">
+			          	<!-- ↓↓↓↓↓商品数据开始↓↓↓↓↓ -->
+                                        {loop $goodslist[$category[0]['id']] $list}
+			        	<dd>
+                                               
+                                                <div class="tag-top">一起猜</div>
+                                                <div class="tag-bottom"></div>
+                                                
+                                                <div class="c_goods_size">
+                                                    <a href="{php echo $this->createMobileUrl('detail',array('id'=>$list['id'])) }">
+                                                                <img id="img_{$list['id'])}" data-original="{$list['picarr']}" class="img-responsive lazy2" style="width: 100%; display: block;" src="{$list['picarr']}">
+                                                        </a>
+                                                </div>
+                                                <a href="#">{$list['title']}</a>
+                                                <div class="shopping-box">
+                                                <div class="shopping-left">
+                                                    <p>还差<span>{$list['shengyu_codes']}</span>人开奖</p>
+                                                        <div class="c_shopping_cart">
+                                                                <div class="c_progress_box">
+                                                                        <span style="width:{$list['scale']}%"></span>
+                                                                </div>
+                                                        </div>
+                                                </div>
+
+                                                    <div class="shopping-right">
+                                                        <div class="shopping-right-2"><a href="{php echo $this->createMobileUrl('detail',array('id'=>$list['id'])) }" style="color:#CC9C0F">参与</a></div>
+                                                </div>
+                                                </div>
+                                        </dd>
+                                        {/loop}
+			        	<!-- ↑↑↑↑↑商品数据结束↑↑↑↑↑ -->
+			      	</dl>
+                                <div style="border-top:1px solid #EFEFF4;width:100%;"></div>
+                                <div class="shopping-right-3"><a href="{php echo $this->createMobileUrl('allgoods',array('ooop'=>$category[0]['id'])) }"><font color="#000000">查看更多>></font></a></div>
+			    </div>
+                            
+                             <div class="c_new_goods b_index_fixed1">
+			        <ul class="c_goods_title" style="position: relative; top: 0px; left: 0px; z-index: 149;">
+                                  <li><img src="{WELIAM_INDIANA_STATIC}image/shiyuan.jpg" height="100%" width="100%"/></li>
+			        </ul>
+			        <dl class="c_goods_details">
+			          	<!-- ↓↓↓↓↓商品数据开始↓↓↓↓↓ -->
+                                        {loop $goodslist[$category[1]['id']] $list}
+			        	<dd>
+                                               
+                                                <div class="tag-top">一起猜</div>
+                                                <div class="tag-bottom"></div>
+                                                
+                                                <div class="c_goods_size">
+                                                    <a href="{php echo $this->createMobileUrl('detail',array('id'=>$list['id'])) }">
+                                                                <img id="img_{$list['id'])}" data-original="{$list['picarr']}" class="img-responsive lazy2" style="width: 100%; display: block;" src="{$list['picarr']}">
+                                                        </a>
+                                                </div>
+                                                <a href="#">{$list['title']}</a>
+                                                <div class="shopping-box">
+                                                <div class="shopping-left">
+                                                        <p>还差<span>{$list['shengyu_codes']}</span>人开奖</p>
+                                                        <div class="c_shopping_cart">
+                                                                <div class="c_progress_box">
+                                                                        <span style="width:{$list['scale']}%"></span>
+                                                                </div>
+                                                        </div>
+                                                </div>
+
+                                                    <div class="shopping-right">
+                                                        <div class="shopping-right-2"><a href="{php echo $this->createMobileUrl('detail',array('id'=>$list['id'])) }" style="color:#CC9C0F">参与</a></div>
+                                                </div>
+                                                </div>
+                                        </dd>
+                                        {/loop}
+			        	<!-- ↑↑↑↑↑商品数据结束↑↑↑↑↑ -->
+			      	</dl>
+                                 <div style="border-top:1px solid #EFEFF4;width:100%;"></div>
+                                <div class="shopping-right-3"><a href="{php echo $this->createMobileUrl('allgoods',array('ooop'=>$category[1]['id'])) }"><font color="#000000">查看更多>></font></a></div>
+			    </div>
+                            
+                             <div class="c_new_goods b_index_fixed1">
+			        <ul class="c_goods_title" style="position: relative; top: 0px; left: 0px; z-index: 149;">
+                                  <li><img src="{WELIAM_INDIANA_STATIC}image/wushi.jpg" height="100%" width="100%"/></li>
+			        </ul>
+			        <dl class="c_goods_details">
+			          	<!-- ↓↓↓↓↓商品数据开始↓↓↓↓↓ -->
+                                        {loop $goodslist[$category[2]['id']] $list}
+			        	<dd>
+                                               
+                                                <div class="tag-top">一起猜</div>
+                                                <div class="tag-bottom"></div>
+                                                
+                                                <div class="c_goods_size">
+                                                    <a href="{php echo $this->createMobileUrl('detail',array('id'=>$list['id'])) }">
+                                                                <img id="img_{$list['id'])}" data-original="{$list['picarr']}" class="img-responsive lazy2" style="width: 100%; display: block;" src="{$list['picarr']}">
+                                                        </a>
+                                                </div>
+                                                <a href="#">{$list['title']}</a>
+                                                <div class="shopping-box">
+                                                <div class="shopping-left">
+                                                        <p>还差<span>{$list['shengyu_codes']}</span>人开奖</p>
+                                                        <div class="c_shopping_cart">
+                                                                <div class="c_progress_box">
+                                                                        <span style="width:{$list['scale']}%"></span>
+                                                                </div>
+                                                        </div>
+                                                </div>
+
+                                                    <div class="shopping-right">
+                                                        <div class="shopping-right-2"><a href="{php echo $this->createMobileUrl('detail',array('id'=>$list['id'])) }" style="color:#CC9C0F">参与</a></div>
+                                                </div>
+                                                </div>
+                                        </dd>
+                                        {/loop}
+			        	<!-- ↑↑↑↑↑商品数据结束↑↑↑↑↑ -->
+			      	</dl>
+                                 <div style="border-top:1px solid #EFEFF4;width:100%;"></div>
+                                <div class="shopping-right-3"><a href="{php echo $this->createMobileUrl('allgoods',array('ooop'=>$category[2]['id'])) }"><font color="#000000">查看更多>></font></a></div>
+			    </div>
+                            
+                             <div class="c_new_goods b_index_fixed1">
+			        <ul class="c_goods_title" style="position: relative; top: 0px; left: 0px; z-index: 149;">
+                                  <li><img src="{WELIAM_INDIANA_STATIC}image/yibai.jpg" height="100%" width="100%"/></li>
+			        </ul>
+			        <dl class="c_goods_details">
+			          	<!-- ↓↓↓↓↓商品数据开始↓↓↓↓↓ -->
+                                        {loop $goodslist[$category[3]['id']] $list}
+			        	<dd>
+                                               
+                                                <div class="tag-top">一起猜</div>
+                                                <div class="tag-bottom"></div>
+                                                
+                                                <div class="c_goods_size">
+                                                    <a href="{php echo $this->createMobileUrl('detail',array('id'=>$list['id'])) }">
+                                                                <img id="img_{$list['id'])}" data-original="{$list['picarr']}" class="img-responsive lazy2" style="width: 100%; display: block;" src="{$list['picarr']}">
+                                                        </a>
+                                                </div>
+                                                <a href="#">{$list['title']}</a>
+                                                <div class="shopping-box">
+                                                <div class="shopping-left">
+                                                        <p>还差<span>{$list['shengyu_codes']}</span>人开奖</p>
+                                                        <div class="c_shopping_cart">
+                                                                <div class="c_progress_box">
+                                                                        <span style="width:{$list['scale']}%"></span>
+                                                                </div>
+                                                        </div>
+                                                </div>
+
+                                                    <div class="shopping-right">
+                                                        <div class="shopping-right-2"><a href="{php echo $this->createMobileUrl('detail',array('id'=>$list['id'])) }" style="color:#CC9C0F">参与</a></div>
+                                                </div>
+                                                </div>
+                                        </dd>
+                                        {/loop}
+			        	<!-- ↑↑↑↑↑商品数据结束↑↑↑↑↑ -->
+			      	</dl>
+                                 <div style="border-top:1px solid #EFEFF4;width:100%;"></div>
+                                <div class="shopping-right-3"><a href="{php echo $this->createMobileUrl('allgoods',array('ooop'=>$category[3]['id'])) }"><font color="#000000">查看更多>></font></a></div>
+			    </div>
+			    <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑首页商品展示结束↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
+		    </div>
+		</div>
+		{template 'common/footer'}
+		</div>
+	</div>
+</div>
+
+
+</body>
+</html>

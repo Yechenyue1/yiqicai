@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>商品详情  - {php echo $this->module['config']['sname']}</title>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+	<meta content="telephone=no" name="format-detection">
+    <link href="{WELIAM_INDIANA_STATIC}css/increase/common.css" rel="stylesheet">
+    <link href="{WELIAM_INDIANA_STATIC}css/increase/detail.css" rel="stylesheet">
+    <link href="{WELIAM_INDIANA_STATIC}css/member.css" rel="stylesheet">
+    <link rel="stylesheet" href="{WELIAM_INDIANA_STATIC}css/flickity-docs.css" media="screen">
+   	<script language="javascript" src="{WELIAM_INDIANA_STATIC}js/jquery.js"></script>
+    <script language="javascript" src="{WELIAM_INDIANA_STATIC}js/swipe.js"></script>
+    <script type='text/javascript' src='{WELIAM_INDIANA_STATIC}js/laytpl.js' charset='utf-8'></script>
+    <style type="text/css">
+        * {
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+         }
+    .c_goods_title{width:100%;height:44px;background:#fff;border-bottom:1px solid #EEEEEE;}
+    .c_goods_title li{background-color:#F7F7F7;list-style-type:none;}
+    .s_index_ul li{width:20%;float:left;text-align:center;margin-bottom:10px}
+    .c_goods_title li{float:left;width:100%;line-height:44px;height:44px;text-align:center;font-size:14px;color:#666}
+    .shopping-right-2{width: 40px;border:1px solid #CC9C0F;text-align: center;border-radius:5px}
+    .shopping-right-3{ width:80px;margin:0 auto;text-align:center;margin-bottom:10px;margin-top:10px;border:1px solid #CC9C0F;font-size: 14px;}
+    
+    .c_new_goods{width:95%;background-color: #fff;margin:10px auto;border-radius:5px;}
+    .c_classfix_goods .c_click_see,.c_new_goods .c_click_see{width:94%;height:36px;line-height:34px;color:#999;margin:10px 0;border:1px solid #eee;border-radius:2px;font-size:12px;text-align:center;background:#f5f5f5;background-size:8px;cursor:pointer}
+    .c_new_goods .c_click_see{background-position:32% center}
+    
+    .c_goods_details .c_no_border{border-right:1px solid #fff}
+    .c_goods_details{width:100%;overflow:hidden}
+    .c_goods_details dd{width:50%;float:left;position:relative;list-style-type:none;}
+    .c_goods_details dd:after{content: '';position: absolute;left: -50%;width: 200%;height: 1px;background: #eee;-webkit-transform:scale(0.5);}
+    .c_goods_details dd:before{content: '';position: absolute;width: 1px;right: 0;top:-110px; height: 200%;background: #eee;-webkit-transform:scale(0.5);}
+    .c_goods_details dd a{width:90%;margin:0 5%;line-height:24px;font-size:14px;color:#CC9C0F;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .c_goods_details dd p{color:#CC9C0F;font-size:12px;line-height:14px；}
+    .c_goods_details dd p span{margin-left:6%;color: #FB5156;}
+    
+    .tag-top{width:22px;height:40px;position: absolute;color:#FFFFFF;font-size:12px;background:#FF0000;font-family: "microsoft yahei";text-align: center;line-height: 110%;margin-left: 10px;}
+    .tag-bottom{position: absolute;width:0;height: 0px;border-left:11px solid transparent;border-right:11px solid transparent;border-top:8px solid #FF0000;margin-top: 40px;margin-left: 10px;}
+    
+    .c_goods_size{width: 140px;height: 140px;margin:0 auto;padding-top:10px;padding-bottom: 6px;}
+    .c_goods_size a{display:block;width:100%}
+    .c_goods_size a img{width: 126px;height: 126px;}
+    
+    .shopping-box{width: 100%;overflow: hidden;padding: 0 5%;margin-top: 4px;margin-bottom: 4px;}
+    .shopping-left{width: 60%;float: left;overflow: hidden;}
+    .shopping-right{float: right;margin-top: 6px;}
+    
+    .c_shopping_cart{overflow:hidden;width: 100%;overflow: hidden;margin-top: 4px;margin-bottom: 4px;}
+    .c_shopping_cart .c_addshopping_cart{display:block;width:25px;float:left;margin-left:4%;background:url(../../img/icon/account_icon_index.png) no-repeat;background-size:auto 36px;height:25px;background-position:-1064px -12px}
+    
+    .c_progress_box{float:left;width:90%;height:4px;background:#e9e9e9;border-radius:2px;margin:8px 0}
+    .c_progress_box span{width:80%;height:100%;background: -webkit-gradient(linear,left top,right top,from(#FFCB3D),to(#FF8533));display:block;border-radius:2px}
+    .c_progress_box{float:none;width:100%}
+    .c_progress_box{width:90%;margin:5px 5% 0;}
+
+    
+    .shujuzhou{height: 100%;width:105%;background-image: url("{WELIAM_INDIANA_STATIC}image/shujuzhou.jpg");background-size:100% 100%;background-repeat: no-repeat;border-top: solid 2px #F7F7F7;border-bottom: solid 2px #F7F7F7;margin: 0px auto;margin-left:-2%;color: black;margin-bottom: 10px;}
+    .shujuzhou-sz{font-size: 12px;height: 12px;float: left;margin-left: 15%;width: 67%;position: relative;top:43%;}
+    .shujuzhou-zt{clear: both;font-size: 10px;margin:0 auto;width:80%; background-color:#F7F7F7;border-radius:5px;position: relative;top:55%;text-align: center;padding: 2px 0; }
+    
+    </style>
+    <script>
+        $(function() {
+                var heid = "{php echo ceil($period['zong_codes']/4)*86;}";
+                var hei = $("#tou").height();
+                if(heid != hei){
+                    $("#tou").height(heid);
+                }
+        });
+       
+    </script>
+</head>
+{php echo register_jssdk();}
+<script>
+	//微信分享
+	var title = "{$detail_goodslist['title']}";
+	var imgUrl = "{php echo tomedia($detail_goodslist['picarr'])}";
+	var desc = "{$detail_goodslist['init_money']}元猜，还差{$period['shengyu_codes']}人开奖，赶紧撸起来！";
+	
+	wx.ready(function(){
+		wx.onMenuShareTimeline({
+   			title: title, // 分享标题
+    		imgUrl: imgUrl, // 分享图标
+    	success: function () { 
+        // 用户确认分享后执行的回调函数
+        	alert('分享成功');
+   		},
+    	cancel: function () { 
+        // 用户取消分享后执行的回调函数
+       		alert("分享失败");
+    	}
+	});
+
+//分享给好友
+	wx.onMenuShareAppMessage({
+    		title: title, // 分享标题
+   			 desc: desc, // 分享描述
+    		imgUrl: imgUrl, // 分享图标
+    	success: function () { 
+        // 用户确认分享后执行的回调函数
+         	alert('分享成功');
+    	},	
+    	cancel: function () { 
+        // 用户取消分享后执行的回调函数
+        	 alert('分享失败');
+    	}
+		});
+	});
+	
+	function ch_button(){
+		var butt = document.getElementById('ch_button');
+		if(butt.style.display == 'none'){
+			butt.style.display = 'block';
+		}else{
+			butt.style.display = 'none';
+		}
+	}
+</script>
+<script>
+$(function() {
+	var wid = $("#shuju").width();
+        wid = wid/3;
+	$("#shuju").height(wid);
+});
+</script>
+<style type="text/css">
+    .touxiang2 {text-align: center;width:100%;margin: 0 auto;background-color: #FFFFFF;margin-top: 2px; }
+    .touxiang2 li{ display:inline;float:left;width:25%; margin-top: 9px;}
+    .touxiang3 img{border-radius:50%;margin: 0 auto;} 
+    .touxiang4 {overflow:hidden;white-space:nowrap;}
+</style>
+<body class="webkit chrome">
+<div class="g-body">
+    <div class="m-detail">
+	{template 'common/suspend'}
+    {template 'common/followed'}    
+        <div class="g-wrap">
+            <div class="g-wrap-hd">
+            	<!-- ↓↓↓↓↓幻灯片开始↓↓↓↓↓ -->
+            	{if $advs}
+            	<div id="banner_box" class="box_swipe">
+					<ul>
+						{loop $advs $adv}
+						<li>
+							<a href="{if empty($adv['link'])}#{else}{$adv['link']}{/if}">
+								<img src="{php echo tomedia($adv['thumb']);}" style='width:100%;' />
+							</a>
+		
+						</li>
+						{/loop}
+					</ul>
+					<ol>
+						{php $slideNum = 1;} {loop $advs $adv}
+						<li{if $slideNum==1 } class="on" {/if}></li>
+							{php $slideNum++;} {/loop}
+					</ol>
+				</div>
+				<script>
+					$(function() {
+				        new Swipe($('#banner_box')[0], {
+				            speed:500,
+				            auto:3000,
+				            callback: function(){
+				                var lis = $(this.element).next("ol").children();
+				                lis.removeClass("on").eq(this.index).addClass("on");
+				            }
+				        });
+				    });
+				</script>
+				{else}
+                <div class="w-slide m-detail-show" id="pro-view-1">
+                    <div class="w-slide-wrap">
+                        <ul class="w-slide-wrap-list" data-pro="list" style="width: 500%;">
+                        	<li data-pro="item" class="w-slide-wrap-list-item selected">
+                                <img src="{$period['goods_picture']}">
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="w-slide-controller">
+                        <div class="w-slide-controller-nav" data-pro="controllerNav">
+                        <span class="dot curr"></span>
+                        </div>
+                    </div>
+                </div>
+                {/if}
+                <!-- ↑↑↑↑↑幻灯片结束↑↑↑↑↑ -->
+                <!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓商品信息开始↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ -->
+                <div class="w-goods w-goods-xxl m-detail-goods">
+                    <div class="w-goods-info">
+                        <p class="w-goods-title">{$period['title']}（{$period['init_money']}元区）</p>
+                        <p class="w-goods-price" style="color: #CC9C0F">总需：{$period['zong_codes']} 人</p>
+                        {if $period['status'] == 1}
+                        <!-- ↓↓↓↓↓商品未揭晓开始↓↓↓↓↓ -->
+                        <div class="w-progressBar">
+                            <p class="wrap">
+                                <span class="bar"><i class="color" style="width:{if $period['scale']}{$period['scale']}{else}0{/if}%;"></i></span>
+                            </p>
+                            <ul class="txt">
+                                <li class="txt-l"><p style="color: #CC9C0F">已参与<b>{$period['canyurenshu']}</b>人</p></li>
+                                <li class="txt-r"><p style="color: #CC9C0F">剩余<b class="txt-blue">{$period['shengyu_codes']}</b>人</p></li>
+                            </ul>
+                        </div>
+                        <!-- ↑↑↑↑↑商品未揭晓结束↑↑↑↑↑ -->
+                        {elseif $period['endtime'] !='' && $period['endtime'] > $period['nowtime']}
+                        <!-- ↓↓↓↓↓商品正在揭晓开始↓↓↓↓↓ -->
+                        <div class="m-detail-goods-countdown" style="height:50px;">
+                            <div class="w-countdown" time="597135">
+                                <span class="w-countdown-title">揭晓倒计时</span>
+                                <span class="w-countdown-nums"></span>
+                                <span class="w-countdown-waiting" style="display:none"><b>正在计算...</b></span>
+                            </div>
+                            <a class="resultBtn w-button w-button-simple w-button-simple-white" href="#">待计算结果</a>
+                        </div>
+                        <script>
+						$(document).ready(function(){
+						    function FreshTime(){
+						        var str ='{php echo date('Y-m-d H:i:s',$period['endtime'])}';
+						        str = str.replace(/-/g,"/");
+						        var starttime= new Date(str);//开始时间
+						        var nowtime = new Date();//当前时间
+						        var now_time = parseInt(nowtime.getTime());
+						        var start_time = parseInt(starttime.getTime());
+						        var jiexiao_time = start_time;
+						        var lefttime = (jiexiao_time-now_time)/1000;
+						       if (lefttime > 0) {
+						            mm=parseInt((lefttime/60)%60);
+						            if(10>mm>0){
+						            	mm="0"+mm;
+						            }
+						            ss=(lefttime%60).toFixed(2);
+						            if(10>parseInt(ss)>0){
+						            	ss="0"+ss;
+						            }
+						            $(".w-countdown-nums").html(mm+":"+ss);
+						        }else{
+						            $(".m-detail-goods-countdown").remove();
+						            $(".m-detail-goods-result").show();
+						            return false;
+						        }
+						  	}
+						    FreshTime();
+						    var sh;
+						    sh=setInterval(FreshTime,10);
+						});
+						</script>
+						 <!-- ↑↑↑↑↑商品正在揭晓结束↑↑↑↑↑ -->
+						{/if}
+			<!-- ↓↓↓↓↓数据轴开始↓↓↓↓↓ -->
+                        <div class="shujuzhou" id="shuju">
+                            <div class="shujuzhou-sz">
+                                <span><b>{$detail_goodslist['num_min']}元</b></span><span style="float: right;"><b>{$detail_goodslist['num_max']}元</b></span>
+                            </div>
+                            <div class="shujuzhou-zt">
+                                <!--<b>在{$detail_goodslist['num_min']}到{$detail_goodslist['num_max']}之间猜一个整数作为此商品的价格<br/>猜的数字最接近系统价格即可得到投入金额的10倍返利</b>-->
+                                <b>该商品的价格范围是{$detail_goodslist['num_min']}-{$detail_goodslist['num_max']}元<br/>用<span style="color:red;">&nbsp;{$period['init_money']}&nbsp;</span>元猜该商品的价格，猜的数字最靠近者可得到<span style="color:red;">&nbsp;{$period['init_money']}0&nbsp;</span>元。</b>
+                            </div>
+                        </div>
+                        <!-- ↑↑↑↑↑数据轴结束↑↑↑↑↑ -->
+                                                
+                        {if $period['status'] > 1 && ($period['endtime'] !='' && $period['nowtime'] > $period['endtime'])}
+                        <!-- ↓↓↓↓↓商品中奖信息开始↓↓↓↓↓ -->
+                        <div class="m-detail-goods-result" {if $period['status'] == 2} style="display: none;"{/if}>
+                            <div class="w-record">
+                                <i class="ico ico-label ico-label-winner"></i>
+                                <div class="w-record-avatar">
+                                    <a href="#"><img width="90" height="90" src="{$period['avatar']}">
+</a>
+                                </div>
+                                <div class="w-record-detail">
+                                    <p class="f-breakword">获奖者：<a href="#">{$period['nickname']}</a></p>
+                                    <p>揭晓时间：{php echo date('Y-m-d H:i:s',$period['endtime'])}</p>
+                                    <p>本期参与　<a class="m-detail-userCodes-viewWinnerCodesBtn" href="javascript:;" onclick="getMoreRecru('{$period['period_number']}','{$period['openid']}')">查看Ta猜的价格</a></p>
+                                </div>
+                            </div>
+                             <p class="m-detail-goods-result-luckyCode" style="background-color:#FDCD21; ">产品价格：<b>{$period['code']}</b></p>
+                        </div>
+                        <!-- ↑↑↑↑↑商品中奖信息结束↑↑↑↑↑ -->
+                        {/if}
+                    </div>
+                </div>
+				<!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑商品信息结束↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
+				<!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓我的参与情况开始↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ -->
+                <div class="m-detail-userCodes" style="color:#000000">
+                	{if $mycodes}
+                	<p>您已参与本期了</p><p class="codes">你猜的价格：
+                            <b class="txt-red" style="color:#db3652">{$mycodes['get_code']}</b>
+                	</p>
+                	{else}
+                	<p class="m-detail-userCodes-blank">
+                		<div id="blank-box">
+	                		<img src="{WELIAM_INDIANA_STATIC}img/icon/appimg/info_fill.png">
+	                		<i>您没有参与本期哦！</i>
+                		</div>
+                	</p>
+                	{/if}
+                </div>
+                <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑我的参与情况结束↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
+            </div>
+            
+            {$couponmess}
+            
+            <div class="g-wrap-bd">
+                <div class="m-detail-more" style="width:95%;margin:10px auto;border-radius:5px;">
+
+                    <a href="javascript:void(0)" onclick="$('.pro-mask').show();$('.w-msgbox').show();" class="w-bar">
+                    	<i class="box-a"><img src="{WELIAM_INDIANA_STATIC}img/icon/appimg/time.png">
+                    		一起猜的规则 </i>
+                    	<span class="w-bar-ext"><b class="ico-next"></b></span>
+                    </a>
+                </div>
+                {if $period['status'] == 1}
+                <div class="m-detail-record"  style="width:95%;margin:0 auto;border-radius:5px;">
+                    <div class="w-bar" style="border-radius:5px;"><i class="box-a"><img src="{WELIAM_INDIANA_STATIC}image/canyu.png">参与记录</i><span class="w-bar-hint">(自{php echo date('Y-m-d H:i:s',$period['createtime'])}开始)</span></div>
+                    
+                    <div class="touxiang2" style="height:258px;border-radius:5px;" id="tou">
+                    <ul>
+                    	<!-- ↓↓↓↓↓购买记录信息开始↓↓↓↓↓ -->
+                        <?php for($i=0;$i<$period['zong_codes'];$i++){ ?>
+                        {if $info[$i]['avatar'] != ''}
+                    	<li>
+                                <div>
+                                       
+                                        <div class="touxiang3"><a href="{php echo $this->createMobileUrl('otherpersonal', array('openid' => $info[$i]['openid']))}"><img width="50" height="50"   src="{$info[$i]['avatar']}"></a></div>
+                                        <div class="touxiang4">
+                                                <a href="{php echo $this->createMobileUrl('otherpersonal', array('openid' => $info[$i]['openid']))}">{$info[$i]['nickname']}</a>
+                                                {if !empty($info[$i]['get_code']) }<br/><span>你猜的价格：{$info[$i]['get_code']}</span> {/if}
+                                        </div>
+                                </div> 
+                        </li>
+                        {else}
+                        <li>
+                                <div>
+                                        
+                                        <div class="touxiang3"><a href="#"><img width="50" height="50"   src="{WELIAM_INDIANA_STATIC}image/defualt.gif"></a></div>
+                                        <div class="touxiang4">
+                                                        等待加入
+                                            </div>
+                                </div> 
+                        </li>
+                        {/if}
+                        <?php } ?>
+                    	<!-- ↑↑↑↑↑购买记录信息结束↑↑↑↑↑ -->
+                    </ul>
+                   </div>
+                     <div style="clear: both"></div>
+                </div>  
+                
+                <div class="c_new_goods b_index_fixed1">
+			        <ul class="c_goods_title" style="position: relative; top: 0px; left: 0px; z-index: 149;">
+                                    <li><img src="{WELIAM_INDIANA_STATIC}image/tuijian.jpg" height="100%" width="100%"/></li>
+			        </ul>
+                              <div class="hero-gallery js-flickity" data-js-module="hero-gallery">
+                                <?php foreach($goods as $key => $list){ ?> 
+                                {if $key == 0 || $key==4 }
+                                <div class="hero-gallery__cell">
+			        <dl class="c_goods_details">
+                                    <!-- ↓↓↓↓↓商品数据开始↓↓↓↓↓ -->
+                                 {/if} 
+			        	<dd>
+                                               
+                                                <div class="tag-top">一起猜</div>
+                                                <div class="tag-bottom"></div>
+                                                
+                                                <div class="c_goods_size">
+                                                    <a href="{php echo $this->createMobileUrl('detail',array('id'=>$list['id'])) }">
+                                                                <img id="img_{$list['id'])}" data-original="{$list['picarr']}" class="img-responsive lazy2" style="width: 100%; display: block;" src="{$list['picarr']}">
+                                                        </a>
+                                                </div>
+                                                <a href="#" style="color:#000000">{$list['title']}</a>
+                                                <div class="shopping-box">
+                                                <div class="shopping-left">
+                                                    <p>还差<span>{$list['shengyu_codes']}</span>人开奖</p>
+                                                        <div class="c_shopping_cart">
+                                                                <div class="c_progress_box">
+                                                                        <span style="width:{$list['scale']}%"></span>
+                                                                </div>
+                                                        </div>
+                                                </div>
+                                                    <div class="shopping-right">
+                                                        <div class="shopping-right-2"><a href="{php echo $this->createMobileUrl('detail',array('id'=>$list['id'])) }">参与</a></div>
+                                                </div>
+                                                </div>
+                                        </dd>
+                                 {if $key==3 || $key==7}    
+			        	<!-- ↑↑↑↑↑商品数据结束↑↑↑↑↑ -->
+                                    </dl>
+                                    <div style="border-top:1px solid #EFEFF4;width:100%;clear:both"></div>
+                                    </div>
+                                 {/if}
+                                <?php } ?>
+                                
+                              </div>
+                                
+                    </div>
+                                  
+                <script src="{WELIAM_INDIANA_STATIC}js/flickity-docs.min.js"></script>
+               {else}
+                <div class="m-detail-record">
+                    <div class="w-bar"><i class="box-a"><img src="{WELIAM_INDIANA_STATIC}image/canyu.png">参与记录</i><span class="w-bar-hint">(自{php echo date('Y-m-d H:i:s',$period['createtime'])}开始)</span></div>
+                    <div class="m-detail-record-wrap">
+                    <div id="pro-view-4">
+                    <ul class="m-detail-record-list" >
+<!--                    	 ↓↓↓↓↓购买记录信息开始↓↓↓↓↓ -->
+                        <?php for($i=0;$i<$period['zong_codes'];$i++){ ?>
+                    	<li id="pro-view-5">
+                                <div class="f-clear">
+                                        <div class="avatar"><a href="{php echo $this->createMobileUrl('otherpersonal', array('openid' => $info[$i]['openid']))}"><img width="35" height="35"   src="{$info[$i]['avatar']}"></a></div>
+                                        <div class="text">
+                                                <p class="f-breakword">
+                                                        <a href="{php echo $this->createMobileUrl('otherpersonal', array('openid' => $info[$i]['openid']))}">{$info[$i]['nickname']}</a>
+                                                {if !empty($info[$i]['get_code']) }<br/><span>猜的价格：{$info[$i]['get_code']}</span> {/if}
+                                                </p>
+                                                <p><span class="num">参与<span class="txt-red"> </span>时间:{$info[$i]['createtime']}</span></p>
+                                        </div>
+                                </div> 
+                        </li>
+                        <?php } ?>
+<!--                    	 ↑↑↑↑↑购买记录信息结束↑↑↑↑↑ -->
+                    </ul>
+                  
+                   </div>
+                    </div>
+                </div>
+            {/if}
+            </div>
+        </div>
+ 
+    
+    </div>
+</div>
+{if $period['status']==1}
+<div class="m-simpleFooter m-detail-buy" style="height:44px;background-color:#FDCD21;text-align:center;">
+    {if empty($mycodes)}
+    <a  class="w-button" id="addtocart" style="height: 30px;line-height: 30px;background-color:#FDCD21;color: #000;margin-bottom: 7px;border: solid 1px #000000; " >立即参与</a>
+    {else}
+    <a  class="w-button" style="height: 30px;line-height: 30px;background-color:#FDCD21;color: red;margin-bottom: 7px;border: solid 1px red; " >您已参与</a>
+    {/if}
+    <div data-pro="ext" class="m-simpleFooter-ext"></div>
+</div>
+{elseif $detail_goodslist['status'] == 2}
+<div class="m-simpleFooter m-detail-go" style="display: block;">
+    <div data-pro="text" class="m-simpleFooter-text">
+        <span class="m-detail-go-period">最新一期</span>正在火热进行...
+    </div>
+    <div data-pro="ext" class="m-simpleFooter-ext">
+        {if $detail_goodslist['status'] == 2}<a class="w-button w-button-main m-detail-go-link" href="{php echo $this->createMobileUrl('detail', array('id'=>$detail_goodslist['id']))}">立即前往</a>{/if}
+    </div>
+</div>
+{else}
+<div class="m-simpleFooter m-detail-buy" style="height:44px;">
+    <div data-pro="text" class="m-simpleFooter-text" style="text-align:center">
+        <a id="quickBuy" class="w-button w-button-main" href="#" style="height: 36px;line-height: 36px;background-color:#FDCD21;color:#000000">已下架</a>
+    </div>
+    <div data-pro="ext" class="m-simpleFooter-ext"></div>
+</div>
+{/if}
+<div class="pro-mask" id="pro-view-7" style="display: none;"></div>
+<div class="w-msgbox" id="pro-view-5" style="left: 14px; top: 10%; display: none;">
+	<div data-pro="close" class="w-msgbox-close" onclick="$('.pro-mask').hide();$('.w-msgbox').hide();">×</div>
+	<div class="w-msgbox-bd"><h3 class="w-msgbox-title"></h3>
+		<div style="font-size: 12px;">
+			<p style="font-size: 13px; margin-bottom: 10px; font-weight: bold;">一起猜的规则：</p>
+			<p style="margin-bottom: 10px;"><b>1.</b> 在系统给出的范围内猜一个整数作为商品的价格，猜的数字最接近系统给出的价格即可获得投入金额的10倍返利【是返利，并非获得产品】;</p>
+			<p style="margin-bottom: 10px;"><b>2.</b> 一起猜上面所有的商品的价格都是虚拟价格，或高或低于商品市场销售价，考验你运气的时候到了;</p>
+			<p style="margin-bottom: 10px;"><b>3.</b> 所有商品一起猜活动都与商品品牌方无关;</p>
+			<p style="margin-bottom: 10px;"><b>4.</b> 当多人猜的价格都一致且最近系统价时，参与时间最早的即为获奖者。</p>
+		</div>
+	</div>
+	<div data-pro="footer" class="w-msgbox-ft w-msgbox-ft-1" onclick="$('.pro-mask').hide();$('.w-msgbox').hide();"><button class="pro-btn" type="button" id="pro-view-6"><span>确定</span></button></div>
+</div>
+
+<button class="w-button w-button-round w-button-backToTop" style="display:none" id="prodibu">返回顶部</button>
+</body>
+{template 'common/common_message'}
+<script>
+	$("#addtocart").bind('click',function(){
+		var periodnumber = "{$period['period_number']}";
+		var title = "{$detail_goodslist['title']}";
+                var getcode=parseFloat(prompt("请输入一个{$detail_goodslist['num_min']}到{$detail_goodslist['num_max']}之间的整数",""));
+                if(getcode >= {$detail_goodslist['num_min']} && getcode <= {$detail_goodslist['num_max']}){
+                    if(getcode%1 === 0){
+                        $.post("{php echo $this->createMobileUrl('cart',array('op'=>'tocart'))}",{periodnumber:periodnumber,title:title,getcode:getcode},function(d){
+                                        if(d.result==1){
+                                                window.location.href="{php echo $this->createMobileUrl('cart', array('op' => 'cart_detail','opp'=>'rightnow','periodnumber'=>$period['period_number'],'title'=>$detail_goodslist['title']))}";
+                                        }
+                        },"json");
+                    }else{
+                        tip("你的数不是整数",true);
+                    }
+                }else{
+                    tip("你的数不在范围内",true);
+                }
+		
+	});
+</script>
+<script language="javascript" src="{WELIAM_INDIANA_STATIC}js/jquery.js"></script>
+<script type="text/javascript">
+function getMoreRecru(pnum,openid) {
+	var ajxurl = "{php echo $this->createMobileUrl('codeajax')}&pnum="+pnum+"&openid="+openid;
+	$.ajax({
+		type: "GET",
+		url: ajxurl,
+		dataType: 'html',
+		success: function(data) {
+			$("#prodibu").after(data);
+		},
+		error:function(){
+			tip("数据加载失败,请重试！",true);
+		}
+	});
+}
+$(document).on('click','#close', function () {
+    $(".pro-mask").remove();
+    $(".w-msgbox").remove();
+});
+$(document).on('click','#confirmbut', function () {
+	$(".pro-mask").remove();
+    $(".w-msgbox").remove();
+});
+</script>
+
+</html>

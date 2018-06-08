@@ -1,0 +1,80 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+	{if $openid}
+	<li><a href="{php echo $this->createWebUrl('member', array('op' => 'display'))}">会员列表</a></li>
+	<li class="active"><a href="{php echo $this->createWebUrl('member', array('op' => 'statistics','openid'=>$openid))}">统计记录</a></li>
+	{else}
+	<li {if $op == 'display'}class="active"{/if}><a href="{php echo $this->createWebUrl('record',array('op'=>'display'));}">全部交易记录</a></li>
+	<li {if $op == 'recharge'}class="active"{/if}><a href="{php echo $this->createWebUrl('record',array('op'=>'recharge'));}">全部充值记录</a></li>
+        <li {if $op == 'statistics'}class="active"{/if}><a href="{php echo $this->createWebUrl('record',array('op'=>'statistics'));}">全部统计记录</a></li>
+	{/if}
+</ul>
+<div class="panel panel-default">
+	<div class="panel-heading">筛选</div>
+	<div class="panel-body">
+		<form action="./index.php" method="get" class="form-horizontal" role="form" id="form">
+			<input type="hidden" name="c" value="site" />
+            <input type="hidden" name="a" value="entry" />
+            <input type="hidden" name="m" value="weliam_indiana" />
+            <input type="hidden" name="do" value="{$_GPC['do']}" />
+            <input type="hidden" name="op" value="{$op}" />
+            <input type="hidden" name="openid" value="{$openid}" />
+			<div class="form-group">
+				<label class="col-md-2 control-label">时间</label>
+				<div class="col-md-4">
+					{php echo tpl_form_field_daterange('time', array('starttime'=>date('Y-m-d H:i:s', $starttime),'endtime'=>date('Y-m-d H:i:s', $endtime)),true);}
+				</div>
+				<div class="col-md-2">
+					<button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<div class="panel panel-default">
+	<div class="panel-heading">统计记录</div>
+	<div class="panel-body">
+		<div class="table-responsive panel-body">
+                    <b>交易记录/总额 --> 用户和机器购买商品的交易数 / 所有的交易金额<br/>
+                    总开奖数/金额 --> 已经开奖的商品总数 / 已经开奖的商品中真实用户竞猜商品的交易总额<br/>
+                    用户获奖数/金额 --> 真实用户中奖总数 / 获取的总金额<br/>
+                    机器获奖数 --> 机器人中奖的总数<br/>
+                    充值记录/总额 --> 用户用微信支付的总数 / 用户用微信支付的总金额<br/>
+                    </b>
+                    <table class="table table-hover table-bordered" style="min-width: 300px;">
+				<thead class="navbar-inner">
+					<tr>
+						<th class="col-sm-1 text-center">月份</th>
+						<th class="col-sm-1 text-center">交易记录/总额</th>
+						<th class="col-sm-1 text-center">用户交易/总额</th>
+						<th class="col-sm-1 text-center">机器交易/总额</th>
+						
+                                                <th class="col-sm-1 text-center">总开奖数/金额</th>
+                                                <th class="col-sm-1 text-center">用户获奖数/金额</th>
+                                                <th class="col-sm-1 text-center">机器获奖数</th>
+                                                
+                                                <th class="col-sm-1 text-center">充值记录/总额</th>
+					</tr>
+				</thead>
+				<tbody>
+                                    {loop $data $list}
+					<tr>
+						<td class="text-center">{$list['yuefen']}</td>
+						<td class="text-center"><a href="{php echo $this->createWebUrl('record',array('op'=>'display'));}">{$list['all_num']}&nbsp;</a>条<br/><span style="color: red;">{$list['all_money']}&nbsp;</span>币</td>
+						<td class="text-center"><a href="{php echo $this->createWebUrl('record',array('op'=>'display','type'=>'person'));}">{$list['ture_num']}&nbsp;</a>条<br/><span style="color: red;">{$list['ture_money']}&nbsp;</span>元</td>
+						<td class="text-center"><a href="{php echo $this->createWebUrl('record',array('op'=>'display','type'=>'machine'));}">{$list['robot_num']}&nbsp;</a>条<br/><span style="color: red;">{$list['robot_money']}&nbsp;</span>币</td>
+						
+                                                <td class="text-center"><a href="{php echo $this->createWebUrl('order');}">{$list['win_all_num']}&nbsp;</a>个<br/><span style="color: red;">{$list['win_all_money']}&nbsp;</span>元</td>
+                                                <td class="text-center"><a href="{php echo $this->createWebUrl('order',array('status'=>'6'));}">{$list['win_ture_num']}&nbsp;</a>个<br/><span style="color: red;">{$list['win_ture_money']}&nbsp;</span>元</td>
+                                                <td class="text-center"><a href="{php echo $this->createWebUrl('order',array('status'=>'3'));}">{$list['win_robot_num']}&nbsp;</a>个</td>
+                                                
+                                                <td class="text-center"><a href="{php echo $this->createWebUrl('record',array('op'=>'recharge'));}">{$list['re_all_num']}&nbsp;</a>条<br/><span style="color: red;">{$list['order_money']}&nbsp;</span>元</td>
+					</tr>
+                                     {/loop}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+{$pager}
+{template 'common/footer'}
